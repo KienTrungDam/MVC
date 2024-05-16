@@ -1,38 +1,44 @@
 ﻿@model List<Category>
 
-<div class="container"> 
-    <!-- paddingtop 4 paddingbutton 4 the nay trong boottrap-->
-    <div class="row pt-4 pb-4"> 
-        <div class="col-6">
-            <h2 class="text-primary">
-                List Category
-            </h2>
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Category List</h2>
+            </div>
         </div>
-        <div class="col-6 text-end">
+    </div>
+    <div class="card-body py-4">
+        <!-- paddingtop 4 paddingbutton 4 the nay trong boottrap-->
+        <div class="row pb-3">
+            <div class="col-6">
+                
+            </div>
+            <div class="col-6 text-end">
                 <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i> Create new category
                 </a>
+            </div>
+
+
         </div>
-        
-        
-    </div>     
         <table class="table table-bordered table-striped">
             <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Category Name
-                </th>
-                <th>
-                    Display Order
-                </th>
-         
-            </tr>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Category Name
+                    </th>
+                    <th>
+                        Display Order
+                    </th>
+
+                </tr>
             </thead>
             <tbody>
-                @foreach(var obj in Model.OrderBy(u=>u.Id))
+                @foreach (var obj in Model.OrderBy(u => u.Id))
                 {
                     <tr>
                         <td>@obj.Id</td>
@@ -48,9 +54,11 @@
                                 </a>
                             </div>
                         </td>
-                    </tr>  
+                    </tr>
                 }
-        
+
             </tbody>
         </table>
+    </div>
 </div>
+
