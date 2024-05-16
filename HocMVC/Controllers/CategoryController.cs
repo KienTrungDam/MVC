@@ -1,6 +1,6 @@
-﻿using HocMVC.Data;
-using HocMVC.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MVC.DataAccess.Data;
+using MVC.Models;
 
 namespace HocMVC.Controllers
 {

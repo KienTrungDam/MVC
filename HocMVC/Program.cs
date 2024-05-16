@@ -1,5 +1,6 @@
-using HocMVC.Data;
+
 using Microsoft.EntityFrameworkCore;
+using MVC.DataAccess.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

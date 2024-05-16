@@ -1,7 +1,7 @@
-﻿using HocMVC.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using MVC.Models;
 
-namespace HocMVC.Data
+namespace MVC.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext // dbcontext trong goi nuget core
     {

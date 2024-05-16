@@ -10,15 +10,15 @@
         </div>
     </div>
     <div class="card-body py-4">
-        <form method="post" class="row"> 
+        <form method="post" class="row">
             <div class="border p-3">
-                <!-- <hr /> thanh ngang horizontal -->             
+                <!-- <hr /> thanh ngang horizontal -->
                 <!-- canh bao het validation o day -->
                 <div asp-validation-summary="All"></div>
                 <div class="form-floating py-2 col-12">
-                    <input asp-for="Name" class="form-control border-0 shadow"/>
+                    <input asp-for="Name" class="form-control border-0 shadow" />
                     <label asp-for="Name" class="ms-2"></label>
-                    
+
                     <!-- canh bao validation -->
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>

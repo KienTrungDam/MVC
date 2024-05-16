@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace HocMVC.Migrations
+namespace MVC.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCatrgoryTable : Migration
