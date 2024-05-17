@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HocMVC", "HocMVC\HocMVC.csproj", "{D9F1CDBF-194D-42E1-8996-AE46F2530A9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.Hoc", "HocMVC\MVC.Hoc.csproj", "{D9F1CDBF-194D-42E1-8996-AE46F2530A9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Models", "MVC.Models\MVC.Models.csproj", "{DB4E6F6B-3BB1-45B5-8B9D-86465862168A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.Models", "MVC.Models\MVC.Models.csproj", "{DB4E6F6B-3BB1-45B5-8B9D-86465862168A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.Utility", "MVC.Utility\MVC.Utility.csproj", "{06BC3939-CBAA-4698-BC8B-F819C040583A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.Utility", "MVC.Utility\MVC.Utility.csproj", "{06BC3939-CBAA-4698-BC8B-F819C040583A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC.DataAccess", "MVC.DataAccess\MVC.DataAccess.csproj", "{F92E75F7-37FF-451B-AD6F-4344E766BAED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.DataAccess", "MVC.DataAccess\MVC.DataAccess.csproj", "{F92E75F7-37FF-451B-AD6F-4344E766BAED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
