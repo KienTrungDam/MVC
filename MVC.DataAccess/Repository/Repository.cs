@@ -47,6 +47,5 @@ namespace MVC.DataAccess.Repository
         {
             dbSet.RemoveRange(entities);
         }
-        public void Update(T entity) { }
     }
 }
