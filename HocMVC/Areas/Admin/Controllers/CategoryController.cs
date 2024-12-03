@@ -54,7 +54,7 @@ namespace MVC.Hoc.Areas.Admin.Controllers
             }
             Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u=>u.Id == id);
-            //Category? categoryFromDb2 = _db.Categories.Where(u=>u.Id == id).FirstOrDefault();  
+            //Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
