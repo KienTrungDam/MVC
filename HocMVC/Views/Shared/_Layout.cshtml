@@ -53,7 +53,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container mb-3 pb-3" style="min-height:100vh">
         <main role="main" class="pb-3">
             <partial name="_Notification" />
             @RenderBody()
@@ -70,6 +70,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js" asp-append-version="true"></script>
     <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script src="https://cdn.tiny.cloud/1/u4pnd8yg3t9riqigz05j52klpmzx8pploh26tzbrdd3rapyj/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
