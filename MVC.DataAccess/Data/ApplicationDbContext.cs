@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MVC.Models;
 
 namespace MVC.DataAccess.Data
 {
-    public class ApplicationDbContext : DbContext // dbcontext trong goi nuget core
+    public class ApplicationDbContext : IdentityDbContext   // dbcontext trong goi nuget core
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         {
@@ -15,6 +17,7 @@ namespace MVC.DataAccess.Data
         //Insert
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Action", DesplayOrder = 1 },
                 new Category { Id = 2, Name = "SciFi", DesplayOrder = 2 },
