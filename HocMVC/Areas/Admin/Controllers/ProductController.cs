@@ -1,6 +1,5 @@
 ﻿ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using MVC.DataAccess.Repository.IRepository;
 using MVC.Models;
 using MVC.Models.ViewModels;

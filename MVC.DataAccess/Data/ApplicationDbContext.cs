@@ -5,7 +5,7 @@ using MVC.Models;
 
 namespace MVC.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext   // dbcontext trong goi nuget core
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>    // dbcontext trong goi nuget core
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         {
