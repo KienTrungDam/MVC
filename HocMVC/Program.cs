@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MVC.DataAccess.Data;
 using MVC.DataAccess.Repository;
 using MVC.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddControllersWithViews();
 //lay connectionstring in appsetting
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//tu dong generate khi add identity
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 var app = builder.Build();
@@ -28,7 +31,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthentication(); // kiem tra tk mk co dung ko
+app.UseAuthorization();  // dung thi moi duoc uy quyen(vd la admin hay user)
+app.MapRazorPages(); // dieu huong den cac razor page trong folder identity
 
 app.MapControllerRoute(
     name: "default",

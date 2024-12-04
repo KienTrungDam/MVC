@@ -5,7 +5,7 @@ using MVC.Models;
 
 namespace MVC.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser>    // dbcontext trong goi nuget core
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>   // dbcontext trong goi nuget core
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         {
@@ -14,6 +14,7 @@ namespace MVC.DataAccess.Data
         //tao bang category
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         //Insert
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
