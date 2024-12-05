@@ -15,28 +15,39 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using MVC.DataAccess.Repository.IRepository;
+using MVC.Models;
+using MVC.Utility;
 
 namespace MVC.Hoc.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserStore<IdentityUser> _userStore;
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUnitOfWork _unitOfWork;
 
         public RegisterModel(
+            IUnitOfWork unitOfWork,
+            RoleManager<IdentityRole> roleManager,
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
+            _unitOfWork = unitOfWork;
+            _roleManager = roleManager;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
@@ -97,11 +108,45 @@ namespace MVC.Hoc.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            public string? Role { get; set; }
+            [Required]
+            public string? Name { get; set; }
+            [Required]
+            public string? FullName { get; set; }
+            [Required]
+            public string? Country { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> RoleList { get; set; }
+
+            public int CompanyId { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> CompanyList { get; set; }
         }
 
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (!_roleManager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
+            {
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
+                _roleManager.CreateAsync(new IdentityRole(SD.Role_Company)).GetAwaiter().GetResult();
+            }
+            Input = new()
+            {
+                RoleList = _roleManager.Roles.Select(u => u.Name).Select(i => new SelectListItem
+                {
+                    Text = i,
+                    Value = i
+                }),
+                CompanyList = _unitOfWork.Company.GetAll().Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString()
+                })
+
+            };
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -116,11 +161,29 @@ namespace MVC.Hoc.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                user.Name = Input.Name;
+                user.FullName = Input.FullName;
+                user.Country = Input.Country;
+                if (Input.Role == SD.Role_Company)
+                {
+                    user.CompanyId = Input.CompanyId;
+                }
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                    //add role khi dang ky 
+                    if(!string.IsNullOrEmpty(Input.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.Role_Customer);
+
+                    }
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -154,11 +217,11 @@ namespace MVC.Hoc.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {

@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC.DataAccess.Data;
 using MVC.DataAccess.Repository.IRepository;
 using MVC.Models;
+using MVC.Utility;
 
 namespace MVC.Hoc.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    //[Authorize(Roles = SD.Role_Admin)] // neu khong co: bth neu ko phai admin van co the vao bang url 
     public class CategoryController : Controller
     {
         
@@ -28,6 +31,7 @@ namespace MVC.Hoc.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = SD.Role_Admin)] co the de trong tung action method
         public IActionResult Create(Category obj)
         {
             if (obj.Name == obj.DesplayOrder.ToString())

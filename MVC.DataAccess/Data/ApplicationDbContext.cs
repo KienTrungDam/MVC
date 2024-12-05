@@ -14,6 +14,7 @@ namespace MVC.DataAccess.Data
         //tao bang category
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         //Insert
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +25,12 @@ namespace MVC.DataAccess.Data
                 new Category { Id = 2, Name = "SciFi", DesplayOrder = 2 },
                 new Category { Id = 3, Name = "Hisory", DesplayOrder = 3 },
                 new Category { Id = 4, Name = "VietNam", DesplayOrder = 4 }
+                );
+            modelBuilder.Entity<Company>().HasData(
+                new Company { Id = 1, Name = "Vietel", City = "HCM", Address = "VietNam", Number = "012345" },
+                new Company { Id = 2, Name = "FPT", City = "Telecom", Address = "VietNam", Number = "03777" },
+                new Company { Id = 3, Name = "Banh My", City = "Ha Noi", Address = "VietNam", Number = "098686" },
+                new Company { Id = 4, Name = "Bun ca ro", City = "Thai Binh", Address = "VietNam", Number = "04953" }
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product
