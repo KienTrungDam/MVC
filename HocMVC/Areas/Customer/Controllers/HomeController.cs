@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MVC.DataAccess.Repository;
 using MVC.DataAccess.Repository.IRepository;
 using MVC.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 
 namespace MVC.Hoc.Areas.Customer.Controllers
@@ -26,10 +28,39 @@ namespace MVC.Hoc.Areas.Customer.Controllers
         }
         public IActionResult Details(int productId)
         {
-            Product product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category");
-            return View(product);
+            ShoppingCart shoppingCart = new()
+            {
+                Product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category"),
+                ProductId = productId,
+                Count = 1
+            };
+            return View(shoppingCart);
         }
-        public IActionResult Privacy()
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart cart)
+        {
+            //ClaimsIdentity: chua danh sach user / User.Identity: lay user hien tai
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            // NameIdentifier: ID duy nhat c?a nguoi dung trong he thong / tim ra Id ?au tien giong
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value; 
+            cart.ApplicationUserId = userId;
+            // thong tin con lai lay o tren
+            ShoppingCart Temp = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId && u.ProductId == cart.ProductId);
+            if(Temp != null)
+            {
+                Temp.Count += cart.Count;
+                _unitOfWork.ShoppingCart.Update(Temp);
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.Add(cart);              
+            }
+            _unitOfWork.Save();
+            TempData["success"] = "Order seccessfully";
+            return RedirectToAction("Index", "Home");
+        }
+        public IActionResult About()
         {
             return View();
         }

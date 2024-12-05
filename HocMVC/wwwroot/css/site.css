@@ -10,16 +10,55 @@ for details on configuring this project to bundle and minify static web assets. 
     margin: auto 0.25rem;
     box-shadow: 0 -2px;
 }
-
-
-
+.fixed-image {
+    width: 229px;
+    height: 275.79px;
+    /* Làm tròn góc nếu cần */
+}
 a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
 }
 
+/**/
+.navbar {
+    font-size: 1rem; /* Tăng kích thước font */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tăng bóng mờ */
+    border-radius: 8px; /* Làm cong các góc */
+}
 
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem; /* Làm nổi bật thương hiệu */
+    text-transform: uppercase; /* Chữ in hoa */
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    padding: 0.75rem 1rem; /* Tăng khoảng cách */
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #fff; /* Màu chữ khi hover */
+        background-color: rgba(255, 255, 255, 0.2); /* Màu nền nhẹ khi hover */
+    }
+
+.dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tăng hiệu ứng bóng cho menu */
+}
+
+.dropdown-item {
+    font-weight: 500;
+}
+
+    .dropdown-item:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #212529; /* Màu chữ khi hover */
+    }
+/**/
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;

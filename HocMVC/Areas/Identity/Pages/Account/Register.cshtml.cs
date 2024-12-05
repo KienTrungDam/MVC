@@ -114,11 +114,13 @@ namespace MVC.Hoc.Areas.Identity.Pages.Account
             [Required]
             public string? FullName { get; set; }
             [Required]
+            public string? Address { get; set; }
+            [Required]
             public string? Country { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
-            public int CompanyId { get; set; }
+            public int? CompanyId { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> CompanyList { get; set; }
         }
@@ -164,6 +166,7 @@ namespace MVC.Hoc.Areas.Identity.Pages.Account
                 user.Name = Input.Name;
                 user.FullName = Input.FullName;
                 user.Country = Input.Country;
+                user.Address = Input.Address;
                 if (Input.Role == SD.Role_Company)
                 {
                     user.CompanyId = Input.CompanyId;
